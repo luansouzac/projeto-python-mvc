@@ -26,6 +26,27 @@ class Aluno:
             db.close()
 
     @staticmethod
+    def listar_alunos():
+        db = get_db_connection()
+
+        if db is None:
+            return None
+        
+        cursor = db.cursor()
+        query = "SELECT * FROM alunos"
+
+        try:
+            cursor.execute(query)
+            alunos = cursor.fetchall()
+
+            return alunos
+        except Exception as e:
+            print(f"Erro ao procurar aluno: {e}")
+        finally:
+            cursor.close()
+            db.close()
+
+    @staticmethod
     def procurar_por_nome(nome):
         db = get_db_connection()
         if db is None:
@@ -46,8 +67,7 @@ class Aluno:
             db.close()
 
         return aluno_encontrado
-
-
+    
         
 
 

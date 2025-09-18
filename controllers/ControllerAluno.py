@@ -14,6 +14,18 @@ def adicionar_novo_aluno():
     else:
         print('Nome e matricula nao podem estar vazios')
 
+def listar_alunos():
+        print('\n --- Alunos cadastrados ---')
+
+        alunos = Aluno.listar_alunos()
+
+        if alunos:
+            print('Alunos: ')
+            print(alunos)
+        else:
+            print('Nenhum aluno cadastrado')
+
+
 
 def procurar_aluno_por_nome():
     print('\n --- Procurar aluno ---')
