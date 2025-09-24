@@ -8,6 +8,11 @@ def get_db_connection():
             password = '',
             database = 'projeto_faculdade'
         )
+
+        if conn is None:
+            print('Erro de conexão com o banco')
+            return None
+
         return conn
     except mysql.connector.Error as err:
         print(f'Erro de conexão com o banco de dados: {err}')

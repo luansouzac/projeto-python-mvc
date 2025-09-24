@@ -1,29 +1,26 @@
 from db.db_connection import get_db_connection
 
 class Aluno:
-    def __init__(self, nome, matricula):
+    def __init__(self, db_connection, nome, matricula):
         self.nome = nome
         self.matricula = matricula
-
-    @staticmethod
-    def criar(nome, matricula):
-        db = get_db_connection()
-        if db is None:
-            return None
+        self.db = db_connection
         
-        cursor = db.cursor()
+    def criar(self, nome, matricula):
+        
+        cursor = self.db.cursor()
 
         query = "INSERT INTO alunos (nome, matricula) VALUES (%s, %s)"
         try:
             cursor.execute(query, (nome, matricula))
-            db.commit()
+            self.db.commit()
             return cursor.lastrowid
         except Exception as e:
-            db.rollback()
+            self.db.rollback()
             print(f"Erro ao criar aluno {e}")
         finally:
             cursor.close()
-            db.close()
+            self.db.close()
 
     @staticmethod
     def listar_alunos():
